@@ -5,25 +5,30 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bookId;
+    private Long id;
     private String title;
     private String author;
-    private String isbn;
-    private String publicationDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date publicationDate;
     private String genre;
     private String language;
-    private String publisher;
     private String edition;
-    private String numberOfPages;
+
     private String description;
-    private String status;
+
+    private int copiesAvailable;
 
 }

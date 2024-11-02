@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "name": "Emalia Ferran",
+    "email": "eferran0@bizjournals.com",
+    "phoneNumber": "841-455-7100",
+    "address": "7 Packers Park",
+    "borrowedBooks": [
+      {
+        "id": "1",
+        "user": {
+          "id": 1,
+          "name": "Emalia Ferran"
+        },
+        "book": {
+          "id": 2,
+          "title": "Twist of Faith",
+          "author": "Mandel Friese",
+          "genre": "Documentary",
+          "language": "Luxembourgish",
+          "edition": 2005,
+          "copiesAvailable": 4,
+          "publicationDate": "2012-08-05"
+        },
+        "borrowDate": "2024-10-29"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Jared Kester",
+    "email": "jkester1@ibm.com",
+    "phoneNumber": "427-634-5895",
+    "address": "05 Daystar Park",
+    "borrowedBooks": [
+      {
+        "id": "1",
+        "user": {
+          "id": 2,
+          "name": "Jared Kester"
+        },
+        "book": {
+          "id": 2,
+          "title": "Twist of Faith",
+          "author": "Mandel Friese",
+          "genre": "Documentary",
+          "language": "Luxembourgish",
+          "edition": 2005,
+          "copiesAvailable": 4,
+          "publicationDate": "2012-08-05"
+        },
+        "borrowDate": "2024-10-01"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Murdock Haysar",
+    "email": "mhaysar2@foxnews.com",
+    "phoneNumber": "421-399-1404",
+    "address": "73741 North Parkway",
+    "borrowedBooks": [
+      {
+        "id": "1",
+        "user": {
+          "id": 3,
+          "name": "Murdock Haysar"
+        },
+        "book": {
+          "id": 1,
+          "title": "Love and Pain and the Whole Damn Thing",
+          "author": "Meredithe Akhurst",
+          "genre": "Comedy|Drama",
+          "language": "English",
+          "edition": 2009,
+          "copiesAvailable": 1,
+          "publicationDate": "1951-10-30"
+        },
+        "borrowDate": "2024-10-01"
+      },
+      {
+        "id": "2",
+        "user": {
+          "id": 3,
+          "name": "Murdock Haysar"
+        },
+        "book": {
+          "id": 2,
+          "title": "Twist of Faith",
+          "author": "Mandel Friese",
+          "genre": "Documentary",
+          "language": "Luxembourgish",
+          "edition": 2005,
+          "copiesAvailable": 4,
+          "publicationDate": "2012-08-05"
+        },
+        "borrowDate": "2024-10-01"
+      }
+    ]
+  }
+]

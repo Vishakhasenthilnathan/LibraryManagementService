@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "title": "Love and Pain and the Whole Damn Thing",
+    "author": "Meredithe Akhurst",
+    "genre": "Comedy|Drama",
+    "language": "Czech",
+    "edition": 2009,
+    "copiesAvailable": 3,
+    "publicationDate": "1951-10-30"
+  },
+  {
+    "id": 2,
+    "title": "Valley Girl",
+    "author": "Fannie Huxtable",
+    "genre": "Comedy|Romance",
+    "language": "Guaraní",
+    "edition": 2010,
+    "copiesAvailable": 5,
+    "publicationDate": "1976-12-14"
+  },
+  {
+    "id": 3,
+    "title": "Haunting, The",
+    "author": "Dorthy Pinnion",
+    "genre": "Horror|Thriller",
+    "language": "Romanian",
+    "edition": 1985,
+    "copiesAvailable": 4,
+    "publicationDate": "1982-04-30"
+  },
+  {
+    "id": 4,
+    "title": "Twist of Faith",
+    "author": "Mandel Friese",
+    "genre": "Documentary",
+    "language": "Luxembourgish",
+    "edition": 2005,
+    "copiesAvailable": 3,
+    "publicationDate": "2012-08-05"
+  },
+  {
+    "id": 5,
+    "title": "Catwoman",
+    "author": "Amii Elloit",
+    "genre": "Action|Crime|Fantasy",
+    "language": "Japanese",
+    "edition": 2008,
+    "copiesAvailable": 1,
+    "publicationDate": "2005-09-18"
+  },
+  {
+    "id": 6,
+    "title": "All or Nothing",
+    "author": "Rubie Van Arsdall",
+    "genre": "Drama",
+    "language": "Ndebele",
+    "edition": 1997,
+    "copiesAvailable": 3,
+    "publicationDate": "2016-04-09"
+  },
+  {
+    "id": 7,
+    "title": "Fairly Odd Christmas, A",
+    "author": "Alyss Daintry",
+    "genre": "Children|Fantasy",
+    "language": "Croatian",
+    "edition": 1992,
+    "copiesAvailable": 2,
+    "publicationDate": "2019-03-21"
+  },
+  {
+    "id": 8,
+    "title": "Uptown Saturday Night",
+    "author": "Vanny Maryon",
+    "genre": "Comedy",
+    "language": "Dzongkha",
+    "edition": 2009,
+    "copiesAvailable": 2,
+    "publicationDate": "1987-06-18"
+  },
+  {
+    "id": 9,
+    "title": "Jim Jefferies: I Swear to God",
+    "author": "Ciro De'Vere - Hunt",
+    "genre": "Comedy",
+    "language": "Arabic",
+    "edition": 1980,
+    "copiesAvailable": 2,
+    "publicationDate": "1974-10-09"
+  },
+  {
+    "id": 10,
+    "title": "On the Beach",
+    "author": "Minor Teall",
+    "genre": "Drama|Sci-Fi",
+    "language": "Somali",
+    "edition": 2004,
+    "copiesAvailable": 2,
+    "publicationDate": "2019-11-25"
+  },
+  {
+    "id": 11,
+    "title": "White Elephant",
+    "author": "Alleen Lilleycrop",
+    "genre": "Drama",
+    "language": "Luxembourgish",
+    "edition": 2011,
+    "copiesAvailable": 5,
+    "publicationDate": "1988-05-05"
+  },
+  {
+    "id": 12,
+    "title": "Rescuers, The",
+    "author": "Maxim Barhem",
+    "genre": "Adventure|Animation|Children|Crime|Drama",
+    "language": "German",
+    "edition": 2007,
+    "copiesAvailable": 3,
+    "publicationDate": "1955-01-24"
+  },
+  {
+    "id": 13,
+    "title": "Anotherworld",
+    "author": "Rustie Antham",
+    "genre": "Drama|Romance",
+    "language": "Latvian",
+    "edition": 1992,
+    "copiesAvailable": 4,
+    "publicationDate": "2021-08-23"
+  },
+  {
+    "id": 14,
+    "title": "Aquamarine",
+    "author": "Yoshiko Davydychev",
+    "genre": "Children|Comedy|Fantasy",
+    "language": "Hindi",
+    "edition": 2003,
+    "copiesAvailable": 1,
+    "publicationDate": "1958-12-11"
+  },
+  {
+    "id": 15,
+    "title": "Bitter Tea of General Yen, The",
+    "author": "Hermina Ornelas",
+    "genre": "Drama|Romance|War",
+    "language": "Fijian",
+    "edition": 1999,
+    "copiesAvailable": 2,
+    "publicationDate": "1987-05-06"
+  },
+  {
+    "id": 16,
+    "title": "Ringu (Ring)",
+    "author": "Stern Yaakov",
+    "genre": "Horror|Mystery|Thriller",
+    "language": "Northern Sotho",
+    "edition": 1992,
+    "copiesAvailable": 5,
+    "publicationDate": "2003-01-31"
+  },
+  {
+    "id": 17,
+    "title": "Sinbad: Legend of the Seven Seas",
+    "author": "Michele Trethowan",
+    "genre": "Adventure|Animation|Children|Fantasy",
+    "language": "Dutch",
+    "edition": 2008,
+    "copiesAvailable": 2,
+    "publicationDate": "1951-05-26"
+  },
+  {
+    "id": 18,
+    "title": "Panic in Needle Park, The",
+    "author": "Deanna Pavese",
+    "genre": "Drama|Romance",
+    "language": "Dhivehi",
+    "edition": 2003,
+    "copiesAvailable": 4,
+    "publicationDate": "2014-12-31"
+  },
+  {
+    "id": 19,
+    "title": "Days of Grace (Días de gracia) ",
+    "author": "Berrie Wigg",
+    "genre": "Thriller",
+    "language": "Tok Pisin",
+    "edition": 2008,
+    "copiesAvailable": 1,
+    "publicationDate": "1997-08-18"
+  },
+  {
+    "id": 20,
+    "title": "Casino Royale",
+    "author": "Buffy Teague",
+    "genre": "Action|Adventure|Comedy",
+    "language": "Afrikaans",
+    "edition": 2009,
+    "copiesAvailable": 5,
+    "publicationDate": "1974-10-11"
+  }
+]
