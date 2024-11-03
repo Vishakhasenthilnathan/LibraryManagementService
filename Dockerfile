@@ -5,7 +5,7 @@ FROM gradle:7.6.0-jdk17 AS build
 WORKDIR /app
 
 # Copy Gradle wrapper and settings files
-COPY build.gradle.kts settings.gradle.kts gradlew /app/
+COPY build.gradle settings.gradle gradlew /app/
 COPY gradle /app/gradle
 
 # Download dependencies without running the full build
