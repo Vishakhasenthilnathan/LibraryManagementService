@@ -3,6 +3,7 @@ package org.hexad.librarymanagementservice.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
+import org.hexad.librarymanagementservice.model.BorrowRecord;
 import org.hexad.librarymanagementservice.model.User;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -43,8 +44,22 @@ public class UserRepository {
                 .orElse(null);
     }
 
+    public User findByNameAndPhoneNumber(String userName, String phoneNumber) {
+        return users.stream()
+                .filter(user -> user.getName().equals(userName) && user.getPhoneNumber().equals(phoneNumber))
+                .findFirst()
+                .orElse(null);
+    }
+
     public void save(User user) {
         users.add(user);
+    }
+
+    public void updateUser(Long userId, List<BorrowRecord> borrowedBooks) {
+        System.out.println("updateUser userId = " + userId+" borrowedBooks = "+borrowedBooks);
+        users.stream().filter(user -> user.getId().equals(userId)).forEach(user -> user.setBorrowedBooks(borrowedBooks));
+        System.out.println("updateUser done =  "+users);
+
     }
 
     public void deleteById(Long id) {

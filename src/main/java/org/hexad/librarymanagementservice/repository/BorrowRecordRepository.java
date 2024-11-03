@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @Component
-public class BorrowRecordRepository {
+public class BorrowRecordRepository  {
     private List<BorrowRecord> borrowRecords = new ArrayList<>();
 
     public List<BorrowRecord> findAll() {

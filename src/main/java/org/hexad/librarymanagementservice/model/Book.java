@@ -26,9 +26,7 @@ public class Book {
     private String genre;
     private String language;
     private String edition;
-
     private String description;
-
     private int copiesAvailable;
 
 }

@@ -5,13 +5,10 @@
     "email": "eferran0@bizjournals.com",
     "phoneNumber": "841-455-7100",
     "address": "7 Packers Park",
+    "borrowingLimit": 2,
     "borrowedBooks": [
       {
         "id": "1",
-        "user": {
-          "id": 1,
-          "name": "Emalia Ferran"
-        },
         "book": {
           "id": 2,
           "title": "Twist of Faith",
@@ -32,13 +29,10 @@
     "email": "jkester1@ibm.com",
     "phoneNumber": "427-634-5895",
     "address": "05 Daystar Park",
+    "borrowingLimit": 2,
     "borrowedBooks": [
       {
         "id": "1",
-        "user": {
-          "id": 2,
-          "name": "Jared Kester"
-        },
         "book": {
           "id": 2,
           "title": "Twist of Faith",
@@ -59,13 +53,10 @@
     "email": "mhaysar2@foxnews.com",
     "phoneNumber": "421-399-1404",
     "address": "73741 North Parkway",
+    "borrowingLimit": 2,
     "borrowedBooks": [
       {
         "id": "1",
-        "user": {
-          "id": 3,
-          "name": "Murdock Haysar"
-        },
         "book": {
           "id": 1,
           "title": "Love and Pain and the Whole Damn Thing",
@@ -80,10 +71,6 @@
       },
       {
         "id": "2",
-        "user": {
-          "id": 3,
-          "name": "Murdock Haysar"
-        },
         "book": {
           "id": 2,
           "title": "Twist of Faith",
