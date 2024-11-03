@@ -41,8 +41,8 @@
 
 **In Scope:**
 1. Due to time constraints, I have added the logic in such a way that on load few books along with few users will be added to the library and for this mvp, the below are the limitations
-2. The user can be only be one of the existing users added in [Users.json](./main/resources/Users.json). Hence to test the APIs, please use the users in [Users.json](./main/resources/Users.json)
-3. The books can be only be one of the existing books added in [Books.json](./main/resources/Books.json). Hence to test the APIs, please use the books in [Books.json](./main/resources/Books.json)
+2. The user can be only be one of the existing users added in [Users.json](src/main/resources/Users.json). Hence to test the APIs, please use the users in [Users.json](src/main/resources/Users.json)
+3. The books can be only be one of the existing books added in [Books.json](src/main/resources/Books.json). Hence to test the APIs, please use the books in [Books.json](src/main/resources/Books.json)
 4. APIs are written in such a way they use user name and phone number to identify the user and book id to identify the book
 
 **Out of Scope:**
@@ -50,3 +50,6 @@
 2. Creation of user and books, adding books to library
 3. Validations
 4. Security and admin login features
+
+
+RENDER - https://librarymanagementservice.onrender.com
