@@ -1,22 +1,29 @@
-# Importing JDK and copying required files
+# Stage 1: Build the application
 FROM openjdk:17-jdk AS build
 WORKDIR /app
-COPY pom.xml .
+
+# Copy the Gradle wrapper and build files
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
 COPY src src
 
-# Copy Maven wrapper
-COPY mvnw .
-COPY .mvn .mvn
+# Set execution permission for the Gradle wrapper
+RUN chmod +x ./gradlew
 
-# Set execution permission for the Maven wrapper
-RUN chmod +x ./mvnw
-RUN ./mvnw clean package -DskipTests
+# Build the application
+RUN ./gradlew clean build -x test
 
-# Stage 2: Create the final Docker image using OpenJDK 19
+# Stage 2: Create the final Docker image
 FROM openjdk:17-jdk
 VOLUME /tmp
 
 # Copy the JAR from the build stage
-COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+COPY --from=build /app/build/libs/*.jar app.jar
+
+# Expose port 8080
 EXPOSE 8080
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "/app.jar"]
