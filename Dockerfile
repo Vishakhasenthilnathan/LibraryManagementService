@@ -1,32 +1,31 @@
 # Stage 1: Build the application
-FROM openjdk:17-jdk AS build
+FROM gradle:7.6.0-jdk17 AS build
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Install xargs
-RUN apt-get update && apt-get install -y xargs
+# Copy Gradle wrapper and settings files
+COPY build.gradle.kts settings.gradle.kts gradlew /app/
+COPY gradle /app/gradle
 
-# Copy the Gradle wrapper and build files
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
-COPY src src
+# Download dependencies without running the full build
+RUN ./gradlew build -x test --no-daemon || return 0
 
-# Set execution permission for the Gradle wrapper
-RUN chmod +x ./gradlew
+# Copy the rest of the application code and build the application
+COPY . .
+RUN ./gradlew clean build -x test --no-daemon
 
-# Build the application
-RUN ./gradlew clean build -x test
+# Stage 2: Package the application
+FROM openjdk:17-jdk-slim
 
-# Stage 2: Create the final Docker image
-FROM openjdk:17-jdk
-VOLUME /tmp
+# Set the working directory for the final stage
+WORKDIR /app
 
-# Copy the JAR from the build stage
+# Copy the built JAR file from the build stage
 COPY --from=build /app/build/libs/*.jar app.jar
 
-# Expose port 8080
+# Expose the port that the application will run on
 EXPOSE 8080
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
