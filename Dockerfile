@@ -2,6 +2,9 @@
 FROM openjdk:17-jdk AS build
 WORKDIR /app
 
+# Install xargs
+RUN apt-get update && apt-get install -y xargs
+
 # Copy the Gradle wrapper and build files
 COPY gradlew .
 COPY gradle gradle
