@@ -1,7 +1,6 @@
 package org.hexad.librarymanagementservice.controller;
 
 import org.hexad.librarymanagementservice.model.Book;
-import org.hexad.librarymanagementservice.model.BorrowRecord;
 import org.hexad.librarymanagementservice.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,11 +24,6 @@ public class LibraryController {
         return libraryService.viewBooks();
     }
 
-    @GetMapping("/borrowedBooks")
-    public List<BorrowRecord> viewBorrowedBooks() {
-        return libraryService.viewBorrowedBooks();
-    }
-
     @GetMapping("/books/{userName}/{phoneNumber}")
     public List<Book> viewBorrowedBooksByUser(@PathVariable String userName, @PathVariable String phoneNumber) {
         return libraryService.viewBorrowedBooks(userName, phoneNumber);
@@ -40,8 +34,9 @@ public class LibraryController {
         String result = libraryService.borrowBook(userName, phoneNumber, bookId);
         if ("Book borrowed successfully".equals(result)) {
             return new ResponseEntity<>(result, HttpStatus.OK);
-        } else if("Book already borrowed".equals(result)) {
-            return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+        }
+        else if("Book already borrowed".equals(result) || "Borrowing limit reached".equals(result)) {
+            return new ResponseEntity<>(result, HttpStatus.METHOD_NOT_ALLOWED);
         }
         else {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);

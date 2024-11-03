@@ -4,6 +4,7 @@ import org.hexad.librarymanagementservice.model.Book;
 import org.hexad.librarymanagementservice.model.BorrowRecord;
 import org.hexad.librarymanagementservice.model.User;
 import org.hexad.librarymanagementservice.repository.BookRepository;
+import org.hexad.librarymanagementservice.repository.BorrowRecordRepository;
 import org.hexad.librarymanagementservice.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,12 +15,11 @@ import org.mockito.MockitoAnnotations;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+
 
 public class LibraryServiceTest {
 
@@ -29,12 +29,23 @@ public class LibraryServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private BorrowRecordRepository borrowRecordRepository;
+
     @InjectMocks
     private LibraryService libraryService;
+
+    private User user;
+    private Book book;
+    private BorrowRecord borrowRecord;
 
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
+        user = new User(1L, "John Doe", "", "1234567890", "Bangalore", null);
+        book = new Book(1L, "The Alchemist", "Paulo Coelho", getDate("1988-10-10"), "", null, null, null, 1, "", "");
+        borrowRecord = new BorrowRecord(1L, new User(1L, "John Doe", "", "1234567890", "Bangalore", null), book, getDate("2021-10-10"));
+        user.setBorrowedBooks(List.of(borrowRecord));
     }
 
     @Test
@@ -47,38 +58,50 @@ public class LibraryServiceTest {
 
     @Test
     public void should_return_list_of_books_from_library_when_books_present() {
-        when(bookRepository.findAll()).thenReturn(books);
+        when(bookRepository.findAll()).thenReturn(List.of(book));
 
         List<Book> result = libraryService.viewBooks();
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
         assertEquals("The Alchemist", result.get(0).getTitle());
-        assertEquals("Love and Pain and the Whole Damn Thing", result.get(1).getTitle());
     }
 
     @Test
     public void should_return_borrowed_books_by_user() {
-//        Long userId = 1L;
-//        User user = new User(1L, "John Doe", "","","",null);
-//        BorrowRecord borrowRecord = new BorrowRecord(1L,user, book, getDate("2021-06-01"));
-//        when(userRepository.findById(userId).getBorrowedBooks()).thenReturn(List.of(borrowRecord));
-//
-//        List<Book> result = libraryService.viewBorrowedBooks(userId);
-//        assertEquals(2, result.size());
-//        assertEquals("The Alchemist", result.get(0).getTitle());
-//        assertEquals("Love and Pain and the Whole Damn Thing", result.get(1).getTitle());
+        when(userRepository.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber())).thenReturn(user);
+        when(borrowRecordRepository.findAll()).thenReturn(List.of(borrowRecord));
+
+        List<Book> result = libraryService.viewBorrowedBooks(user.getName(), user.getPhoneNumber());
+        assertEquals(1, result.size());
+        assertEquals("The Alchemist", result.get(0).getTitle());
     }
 
     @Test
-    public void should_borrow_book_successfully() {
+    public void should_not_allow_to_already_borrowed_book() {
+        when(userRepository.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber())).thenReturn(user);
+        when(bookRepository.findById(book.getId())).thenReturn(book);
+        String result = libraryService.borrowBook(user.getName(), user.getPhoneNumber(), book.getId());
+        assertEquals("Book already borrowed", result);
+    }
 
+    @Test
+    public void should_allow_to_borrow_book_successfully() {
+        when(userRepository.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber())).thenReturn(user);
+        Book newbook = new Book(2L, "The Pride and Prejudice", "abc", getDate("1988-10-10"), "", null, null, null, 1, "", "");
+        when(bookRepository.findById(newbook.getId())).thenReturn(newbook);
+        String result = libraryService.borrowBook(user.getName(), user.getPhoneNumber(), newbook.getId());
+        assertEquals("Book borrowed successfully", result);
     }
 
     @Test
     public void should_return_book_successfully() {
-
+        when(userRepository.findByNameAndPhoneNumber(user.getName(), user.getPhoneNumber())).thenReturn(user);
+        when(bookRepository.findById(book.getId())).thenReturn(book);
+        when(borrowRecordRepository.findAll()).thenReturn(List.of(borrowRecord));
+        String result = libraryService.returnBook(user.getName(), user.getPhoneNumber(), book.getId());
+        assertEquals("Book returned successfully", result);
     }
 
-    public Date getDate(String dateStr) {
+    public java.util.Date getDate(String dateStr) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         try {
             return formatter.parse(dateStr);
@@ -87,8 +110,4 @@ public class LibraryServiceTest {
         }
         return null;
     }
-
-    Book book = new Book(1L, "The Alchemist", "Paulo Coelho", getDate("1992-12-10"), "Fiction", "English", "1st", "A book about following your dreams", 10);
-    Book book2 = new Book(2L, "Love and Pain and the Whole Damn Thing", "Meredithe Akhurst", getDate("1998-06-5"), "Fiction", "English", "2nd", "Action|Adventure|Comedy", 6);
-    List<Book> books = List.of(book, book2);
 }

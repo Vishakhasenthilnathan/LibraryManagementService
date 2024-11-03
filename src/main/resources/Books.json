@@ -1,23 +1,27 @@
 [
   {
     "id": 1,
-    "title": "Love and Pain and the Whole Damn Thing",
-    "author": "Meredithe Akhurst",
+    "title": "Things Fall Apart",
+    "author": "Chinua Achebe",
     "genre": "Comedy|Drama",
     "language": "English",
-    "edition": 2009,
+    "edition": 1958,
     "copiesAvailable": 1,
-    "publicationDate": "1951-10-30"
+    "publicationDate": "1951-10-30",
+    "link": "https://en.wikipedia.org/wiki/Things_Fall_Apart",
+    "imageLink": "https://m.media-amazon.com/images/I/81jS+AO-NiL._AC_UF1000,1000_QL80_.jpg"
   },
   {
     "id": 2,
-    "title": "Twist of Faith",
-    "author": "Mandel Friese",
+    "title": "Fairy tales",
+    "author": "Hans Christian Andersen",
     "genre": "Documentary",
-    "language": "Luxembourgish",
+    "language": "Danish",
     "edition": 2005,
     "copiesAvailable": 4,
-    "publicationDate": "2012-08-05"
+    "publicationDate": "2012-08-05",
+    "imageLink": "",
+    "link": "https://en.wikipedia.org/wiki/Fairy_Tales_Told_for_Children._First_Collection."
   },
   {
     "id": 3,
@@ -36,17 +40,43 @@
     "genre": "Children|Fantasy",
     "language": "English",
     "edition": 1992,
-    "copiesAvailable": 2,
+    "copiesAvailable": 1,
     "publicationDate": "2019-03-21"
   },
   {
     "id": 5,
-    "title": "Uptown Saturday Night",
+    "title": "Old Norse",
     "author": "Vanny Maryon",
     "genre": "Comedy",
     "language": "Dzongkha",
+    "imageLink": "https://unsplash.com/photos/zMRLZh40kms",
+    "link": "https://en.wikipedia.org/wiki/Nj%C3%A1ls_saga\n",
     "edition": 2009,
     "copiesAvailable": 2,
     "publicationDate": "1987-06-18"
+  },
+  {
+    "id": 6,
+    "title": "The Divine Comedy",
+    "author": "Vanny Maryon",
+    "genre": "Comedy",
+    "language": "Italian",
+    "edition": 2009,
+    "copiesAvailable": 1,
+    "publicationDate": "1987-06-18",
+    "imageLink": "https://unsplash.com/photos/9zsHNt5OpqE",
+    "link": "https://en.wikipedia.org/wiki/Divine_Comedy\n"
+  },
+  {
+    "id": 7,
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "genre": "Drama",
+    "language": "English",
+    "edition": 2009,
+    "copiesAvailable": 2,
+    "publicationDate": "1987-06-18",
+    "imageLink": "https://unsplash.com/photos/-FVaZbu6ZAE",
+    "link": "https://en.wikipedia.org/wiki/Pride_and_Prejudice\n"
   }
 ]

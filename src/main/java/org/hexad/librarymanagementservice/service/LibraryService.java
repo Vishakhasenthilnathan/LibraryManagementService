@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,7 +24,8 @@ public class LibraryService {
     private final UserRepository userRepository;
     private final BorrowRecordRepository borrowRecordRepository;
 
-    public LibraryService(@Autowired BookRepository bookRepository, @Autowired UserRepository userRepository, @Autowired BorrowRecordRepository borrowRecordRepository) {
+    @Autowired
+    public LibraryService(BookRepository bookRepository, UserRepository userRepository, BorrowRecordRepository borrowRecordRepository) {
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
         this.borrowRecordRepository = borrowRecordRepository;
@@ -33,14 +36,10 @@ public class LibraryService {
     }
 
     public List<Book> viewBorrowedBooks(String userName, String phoneNumber) {
-        return getBorrowedBooks(userRepository.findByNameAndPhoneNumber(userName, phoneNumber)).stream()
+        User user = userRepository.findByNameAndPhoneNumber(userName, phoneNumber);
+        return getBorrowedBooks(user).stream()
                 .map(BorrowRecord::getBook)
                 .collect(Collectors.toList());
-
-    }
-
-    public List<BorrowRecord> viewBorrowedBooks() {
-        return borrowRecordRepository.findAll();
     }
 
     public String borrowBook(String userName, String phoneNumber, Long bookId) {
@@ -48,66 +47,75 @@ public class LibraryService {
         Book book = bookRepository.findById(bookId);
 
         if (book == null) {
-            return "book not found";
+            return "Book not found";
         }
 
         if (user == null) {
-            return "user not found";
+            return "User is invalid";
+        }
+
+        if (isBookAlreadyBorrowed(user, book)) {
+            return "Book already borrowed";
         }
 
         if (getBorrowedBooks(user).size() >= user.getBorrowingLimit()) {
             return "Borrowing limit reached";
         }
 
-        if (book.getCopiesAvailable() > 0 && getBorrowedBooks(user).stream().noneMatch(b -> b.getBook().getId().equals(book.getId()))) {
-            try {
-                BorrowRecord borrowRecord = new BorrowRecord();
-                borrowRecord.setId((long) (borrowRecordRepository.findAll().size() + 1));
-                borrowRecord.setBook(book);
-                borrowRecord.setBorrowDate(Date.valueOf(LocalDate.now()));
-                borrowRecordRepository.save(borrowRecord);
-
-                List<BorrowRecord> existingBorrowRecords = getBorrowedBooks(user);
-                existingBorrowRecords.add(borrowRecord);
-                user.setBorrowedBooks(existingBorrowRecords);
-//                userRepository.updateUser(user.getId(),existingBorrowRecords);
-
-                bookRepository.updateBookQuantity(book.getId(), book.getCopiesAvailable() - 1);
-                return "Book borrowed successfully";
-            } catch (Exception e) {
-                return "Failed to borrow book " + e;
-            }
-        } else if (getBorrowedBooks(user).stream().noneMatch(b -> b.getBook().equals(book))) {
-            return "Book already borrowed";
+        if (book.getCopiesAvailable() > 0) {
+            return processBorrowing(user, book);
         } else {
-            return "Book not available or already borrowed";
+            return "Book not available";
         }
     }
 
-    private static List<BorrowRecord> getBorrowedBooks(User user) {
+    private boolean isBookAlreadyBorrowed(User user, Book book) {
+        return getBorrowedBooks(user).stream()
+                .anyMatch(b -> b.getBook().getId().equals(book.getId()));
+    }
+
+    private String processBorrowing(User user, Book book) {
+        try {
+            BorrowRecord borrowRecord = new BorrowRecord();
+            borrowRecord.setBook(book);
+            borrowRecord.setBorrowDate(Date.valueOf(LocalDate.now()));
+            borrowRecordRepository.save(borrowRecord);
+
+            List<BorrowRecord> existingBorrowRecords =  new ArrayList<>(getBorrowedBooks(user));
+            existingBorrowRecords.add(borrowRecord);
+            user.setBorrowedBooks(existingBorrowRecords);
+
+            bookRepository.updateBookQuantity(book.getId(), book.getCopiesAvailable() - 1);
+            return "Book borrowed successfully";
+        } catch (Exception e) {
+            return "Failed to borrow book: " + e.getMessage();
+        }
+    }
+
+    private List<BorrowRecord> getBorrowedBooks(User user) {
         return user.getBorrowedBooks();
     }
 
     public String returnBook(String userName, String phoneNumber, Long bookId) {
         User user = userRepository.findByNameAndPhoneNumber(userName, phoneNumber);
         Book book = bookRepository.findById(bookId);
-        List<BorrowRecord> existingBorrowRecords = getBorrowedBooks(user);
 
-        Optional<BorrowRecord> borrowRecord = existingBorrowRecords.stream().filter(b -> b.getBook().getId().equals(bookId)).findFirst();
-        System.out.println("user borrowRecordOptional = " + borrowRecord);
+        List<BorrowRecord> bw = getBorrowedBooks(user);
+        Optional<BorrowRecord> borrowRecord = bw.stream()
+                .filter(b -> b.getBook().equals(book))
+                .findFirst();
 
-        if (borrowRecord.isPresent()) {
-            existingBorrowRecords.remove(borrowRecord.get());
-            user.setBorrowedBooks(existingBorrowRecords);
-            System.out.println("user existingBorrowRecords = " + existingBorrowRecords);
-            userRepository.updateUser(user.getId(), existingBorrowRecords);
-            borrowRecordRepository.delete(borrowRecord.get());
-            borrowRecordRepository.findAll().forEach(System.out::println);
-            bookRepository.updateBookQuantity(book.getId(), book.getCopiesAvailable() + 1);
+        return borrowRecord.map(record -> processReturning(user, book, record)).orElse("No such borrowed book found");
+    }
 
-            return "Book returned successfully";
-        } else {
-            return "No such borrowed book found";
-        }
+    private String processReturning(User user, Book book, BorrowRecord borrowRecord) {
+        List<BorrowRecord> existingBorrowRecords = new ArrayList<>(getBorrowedBooks(user));
+        existingBorrowRecords.remove(borrowRecord);
+        user.setBorrowedBooks(existingBorrowRecords);
+        userRepository.updateUser(user.getId(), existingBorrowRecords);
+        borrowRecordRepository.delete(borrowRecord);
+        bookRepository.updateBookQuantity(book.getId(), book.getCopiesAvailable() + 1);
+
+        return "Book returned successfully";
     }
 }

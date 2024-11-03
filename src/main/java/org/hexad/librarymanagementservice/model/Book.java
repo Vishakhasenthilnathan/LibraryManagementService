@@ -28,5 +28,7 @@ public class Book {
     private String edition;
     private String description;
     private int copiesAvailable;
+    private String imageLink;
+    private String link;
 
 }
